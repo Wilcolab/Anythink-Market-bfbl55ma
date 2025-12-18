@@ -3,7 +3,7 @@
     <title>Calculator</title>
     <link rel="stylesheet" href="default.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <script src="client.js"></script>
+    
   </head>
   <body onLoad="setValue(0)">
     <div class="container">
@@ -17,33 +17,38 @@
         <div class="calculator">
           <div class="calculator-buttons">
             <button class="btn span-2"></button>
-            <button class="btn" onClick="clearPressed()">C</button>
-            <button class="btn" onClick="clearPressed()">CE</button>
+            <button class="btn" id="btnClear">C</button>
+            <button class="btn" id="btnClearEntry">CE</button>
 
-            <button class="btn" onClick="numberPressed(7)">7</button>
-            <button class="btn" onClick="numberPressed(8)">8</button>
-            <button class="btn" onClick="numberPressed(9)">9</button>
-            <button class="btn" onClick="operationPressed('/')">&divide;</button>
+            <button class="btn" id="btnSeven">7</button>
+            <button class="btn" id="btnEight">8</button>
+            <button class="btn" id="btnNine">9</button>
+            <button class="btn" id="btnDivide">&divide;</button>
 
-            <button class="btn" onClick="numberPressed(4)">4</button>
-            <button class="btn" onClick="numberPressed(5)">5</button>
-            <button class="btn" onClick="numberPressed(6)">6</button>
-            <button class="btn" onClick="operationPressed('*')">x</button>
+            <button class="btn" id="btnFour">4</button>
+            <button class="btn" id="btnFive">5</button>
+            <button class="btn" id="btnSix">6</button>
+            <button class="btn" id="btnMultiply">x</button>
 
-            <button class="btn" onClick="numberPressed(1)">1</button>
-            <button class="btn" onClick="numberPressed(2)">2</button>
-            <button class="btn" onClick="numberPressed(3)">3</button>
-            <button class="btn" onClick="operationPressed('-')">-</button>
+            <button class="btn" id="btnOne">1</button>
+            <button class="btn" id="btnTwo">2</button>
+            <button class="btn" id="btnThree">3</button>
+            <button class="btn" id="btnMinus">-</button>
 
-            <button class="btn" onClick="numberPressed(0)">0</button>
-            <button class="btn" onClick="decimalPressed()">.</button>
-            <button class="btn" onClick="operationPressed('+')">+</button>
-            <button class="btn" onClick="equalPressed()">=</button>
+            <button class="btn" id="btnZero">0</button>
+            <button class="btn" id="btnDecimal">.</button>
+            <button class="btn" id="btnPlus">+</button>
+            <button class="btn" id="btnEquals">=</button>
 
             <!-- TODO: Buttons -->
+             <!-- add a button for a power (or exponential) function -->
+              <button class="btn" id="btnPower">^</button>
+
+
           </div>
         </div>
       </div>
     </div>
+    <script src="client.js"></script>
   </body>
 </html>

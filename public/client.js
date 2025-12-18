@@ -33,6 +33,10 @@ function calculate(operand1, operand2, operation) {
         case '/':
             uri += "?operation=divide";
             break;
+        // New Feature Exponentiation (^)
+        case '^':
+            uri += "?operation=power";
+            break;  // map ^ to 'power'
         default:
             setError();
             return;
@@ -111,7 +115,7 @@ function signPressed() {
 }
 
 function operationPressed(op) {
-    operand1 = getValue();
+    operand1 = Number(getValue());
     operation = op;
     state = states.operator;
 }
@@ -133,17 +137,43 @@ function equalPressed() {
 }
 
 // TODO: Add key press logics
-document.addEventListener('keypress', (event) => {
-    if (event.key.match(/^\d+$/)) {
+document.addEventListener('keydown', (event) => {
+    if (/^\d$/.test(event.key)) {
         numberPressed(event.key);
     } else if (event.key == '.') {
         decimalPressed();
-    } else if (event.key.match(/^[-*+/]$/)) {
+    } else if ('+-*/^'.includes(event.key)) {
         operationPressed(event.key);
-    } else if (event.key == '=') {
+    } else if (event.key === '=' || event.key === 'Enter') {
         equalPressed();
     }
 });
+
+    document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById("btnPower").addEventListener("click", () => operationPressed('^'));
+    document.getElementById("btnEquals").addEventListener("click", equalPressed);
+
+    document.getElementById("btnClear").addEventListener("click", clearPressed);
+    document.getElementById("btnClearEntry").addEventListener("click", clearEntryPressed);
+
+    document.getElementById("btnZero").addEventListener("click", () => numberPressed(0));
+    document.getElementById("btnOne").addEventListener("click", () => numberPressed(1));
+    document.getElementById("btnTwo").addEventListener("click", () => numberPressed(2));
+    document.getElementById("btnThree").addEventListener("click", () => numberPressed(3));
+    document.getElementById("btnFour").addEventListener("click", () => numberPressed(4));
+    document.getElementById("btnFive").addEventListener("click", () => numberPressed(5));
+    document.getElementById("btnSix").addEventListener("click", () => numberPressed(6));
+    document.getElementById("btnSeven").addEventListener("click", () => numberPressed(7));
+    document.getElementById("btnEight").addEventListener("click", () => numberPressed(8));
+    document.getElementById("btnNine").addEventListener("click", () => numberPressed(9));
+
+    document.getElementById("btnDecimal").addEventListener("click", decimalPressed);
+    document.getElementById("btnPlus").addEventListener("click", () => operationPressed('+'));
+    document.getElementById("btnMinus").addEventListener("click", () => operationPressed('-'));
+    document.getElementById("btnMultiply").addEventListener("click", () => operationPressed('*'));
+    document.getElementById("btnDivide").addEventListener("click", () => operationPressed('/'));
+});
+
 
 function getValue() {
     return value;
