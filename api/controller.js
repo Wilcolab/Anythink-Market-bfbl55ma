@@ -30,6 +30,10 @@ exports.calculate = function(req, res) {
     throw new Error("Invalid operation: " + req.query.operation);
   }
 
+  if (req.query.operation === 'power' && Number(req.query.operand1) === 0 && Number(req.query.operand2) === 0) {
+    throw new Error("Cannot raise zero to zero");
+  }
+
   if (!req.query.operand1 ||
       !req.query.operand1.match(/^(-)?[0-9\.]+(e(-)?[0-9]+)?$/) ||
       req.query.operand1.replace(/[-0-9e]/g, '').length > 1) {
@@ -42,5 +46,5 @@ exports.calculate = function(req, res) {
     throw new Error("Invalid operand2: " + req.query.operand2);
   }
 
-  res.json({ result: operation(req.query.operand1, req.query.operand2) });
+  res.json({ result: parseFloat(operation(req.query.operand1, req.query.operand2).toFixed(6)) });
 };
