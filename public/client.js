@@ -76,6 +76,18 @@ function clearEntryPressed() {
 }
 
 function numberPressed(n) {
+    if (n == '-') {
+        if (state == states.start || state == states.complete) {
+            value = n;
+            state = states.operand1;
+        } else if (state == states.operator) {
+            value = n;
+            state = states.operand2;
+        }
+        setValue(value);
+        return;
+    }
+
     var value = getValue();
 
     if (state == states.start || state == states.complete) {
@@ -101,15 +113,24 @@ function decimalPressed() {
         setValue('0.');
         state = states.operand2;
     } else if (!getValue().toString().includes('.')) {
-        setValue(getValue() + '.');
+        var v = getValue();
+        if (v == '-') {
+            setValue('-0.');
+        } else {
+            setValue(v + '.');
+        }
     }
 }
 
 function signPressed() {
-    var value = getValue();
-
-    if (value != 0) {
-        setValue(-1 * value);
+    if (state == states.operator) {
+        setValue('-');
+        state = states.operand2;
+    } else {
+        var value = getValue();
+        if (value != 0 || value.toString().startsWith('-')) {
+            setValue(-1 * value);
+        }
     }
 }
 
@@ -141,8 +162,14 @@ document.addEventListener('keypress', (event) => {
         numberPressed(event.key);
     } else if (event.key == '.') {
         decimalPressed();
-    } else if (event.key.match(/^[-*+/]$/)) {
+    } else if (event.key.match(/^[*+/]$/)) {
         operationPressed(event.key);
+    } else if (event.key == '-') {
+        if (state == states.operator) {
+            numberPressed('-');
+        } else {
+            operationPressed('-');
+        }
     } else if (event.key == '=') {
         equalPressed();
     }
