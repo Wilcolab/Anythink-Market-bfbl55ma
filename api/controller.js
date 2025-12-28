@@ -1,13 +1,8 @@
 'use strict';
 
 exports.calculate = function(req, res) {
-  req.app.use(function(err, _req, res, next) {
-    if (res.headersSent) {
-      return next(err);
-    }
-
-    res.status(400);
-    res.json({ error: err.message });
+  app.use(function(err, req, res, next) {
+    res.status(400).json({error: err.message}); 
   });
 
   // TODO: Add operator
