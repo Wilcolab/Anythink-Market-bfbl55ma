@@ -140,6 +140,14 @@ function operationPressed(op) {
     state = states.operator;
 }
 
+function handleMinus() {
+    if (state == states.operator) {
+        numberPressed('-');
+    } else {
+        operationPressed('-');
+    }
+}
+
 function equalPressed() {
     if (state < states.operand2) {
         state = states.complete;
