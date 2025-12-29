@@ -147,74 +147,7 @@ describe('Arithmetic', function () {
         });
     });
 
-    describe('Power', function () {
-        it('raises negative base to positive exponent', function (done) {
-            request.get('/arithmetic?operation=power&operand1=-3&operand2=3')
-                .expect(200)
-                .end(function (err, res) {
-                    expect(res.body).to.eql({ result: -27 });
-                    done();
-                });
-        });
-        it('raises base to zero', function (done) {
-            request.get('/arithmetic?operation=power&operand1=2&operand2=0')
-                .expect(200)
-                .end(function (err, res) {
-                    expect(res.body).to.eql({ result: 1 });
-                    done();
-                });
-        });
-        it('raises base to negative fractional exponent', function (done) {
-            request.get('/arithmetic?operation=power&operand1=5&operand2=-0.5')
-                .expect(200)
-                .end(function (err, res) {
-                    expect(res.body).to.eql({ result: 0.447214 });
-                    done();
-                });
-        });
-        it('raises zero to zero', function (done) {
-            request.get('/arithmetic?operation=power&operand1=0&operand2=0')
-                .expect(400)
-                .end(function (err, res) {
-                    expect(res.body).to.eql({ error: "Cannot raise zero to zero" });
-                    done();
-                });
-        });
-        it('raises zero to positive exponent', function (done) {
-            request.get('/arithmetic?operation=power&operand1=0&operand2=2')
-                .expect(200)
-                .end(function (err, res) {
-                    expect(res.body).to.eql({ result: 0 });
-                    done();
-                });
-        });
-        it('raises positive base to negative fractional exponent', function (done) {
-            request.get('/arithmetic?operation=power&operand1=4&operand2=-2.5')
-                .expect(200)
-                .end(function (err, res) {
-                    expect(res.body).to.eql({ result: 0.03125 });
-                    done();
-                });
-        });
-        it('raises negative base to negative integer exponent', function (done) {
-            request.get('/arithmetic?operation=power&operand1=-2&operand2=-3')
-                .expect(200)
-                .end(function (err, res) {
-                    expect(res.body).to.eql({ result: -0.125 });
-                    done();
-                });
-        });
-        it('raises positive base to positive exponent', function (done) {
-            request.get('/arithmetic?operation=power&operand1=3&operand2=3')
-                .expect(200)
-                .end(function (err, res) {
-                    expect(res.body).to.eql({ result: 27 });
-                    done();
-                });
-        });
-    });
-
-    describe('Division', function () {
+        describe('Division', function () {
         it('divides a positive integer by an integer factor ', function (done) {
             request.get('/arithmetic?operation=divide&operand1=42&operand2=2')
                 .expect(200)
@@ -268,6 +201,73 @@ describe('Arithmetic', function () {
                 .expect(200)
                 .end(function (err, res) {
                     expect(res.body).to.eql({ result: null });
+                    done();
+                });
+        });
+    });
+
+    describe('Power', function () {
+        it('raises negative base to positive exponent', function (done) {
+            request.get('/arithmetic?operation=power&operand1=-3&operand2=3')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: -27 });
+                    done();
+                });
+        });
+        it('raises base to zero', function (done) {
+            request.get('/arithmetic?operation=power&operand1=2&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 1 });
+                    done();
+                });
+        });
+        it('raises base to negative fractional exponent', function (done) {
+            request.get('/arithmetic?operation=power&operand1=5&operand2=-0.5')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0.447214 });
+                    done();
+                });
+        });
+        it('raises zero to zero', function (done) {
+            request.get('/arithmetic?operation=power&operand1=0&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ error: "Cannot raise zero to zero" });
+                    done();
+                });
+        });
+        it('raises zero to positive exponent', function (done) {
+            request.get('/arithmetic?operation=power&operand1=0&operand2=2')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0 });
+                    done();
+                });
+        });
+        it('raises positive base to negative fractional exponent', function (done) {
+            request.get('/arithmetic?operation=power&operand1=4&operand2=-2.5')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0.03125 });
+                    done();
+                });
+        });
+        it('raises negative base to negative integer exponent', function (done) {
+            request.get('/arithmetic?operation=power&operand1=-2&operand2=-3')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: -0.125 });
+                    done();
+                });
+        });
+        it('raises positive base to positive exponent', function (done) {
+            request.get('/arithmetic?operation=power&operand1=3&operand2=3')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 27 });
                     done();
                 });
         });
