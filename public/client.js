@@ -61,6 +61,38 @@ function calculate(operand1, operand2, operation) {
     http.send(null);
 }
 
+function calculateUnary(operation, operand) {
+    var uri = location.origin + "/arithmetic?operation=" + operation + "&operand1=" + encodeURIComponent(operand);
+
+    setLoading(true);
+
+    var http = new XMLHttpRequest();
+    http.open("GET", uri, true);
+    http.onload = function () {
+        setLoading(false);
+
+        if (http.status == 200) {
+            var response = JSON.parse(http.responseText);
+            setValue(response.result);
+            // Reset state for new calculation
+            operand1 = response.result;
+            operand2 = 0;
+            operation = null;
+            state = states.operand1;
+        } else {
+            setError();
+        }
+    };
+    http.send(null);
+}
+
+function unaryPressed(op) {
+    var val = getValue();
+    if (val !== 0 || state !== states.start) {
+        calculateUnary(op, val);
+    }
+}
+
 function clearPressed() {
     setValue(0);
 

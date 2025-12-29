@@ -1,9 +1,7 @@
 'use strict';
 
 exports.calculate = function(req, res) {
-  app.use(function(err, req, res, next) {
-    res.status(400).json({error: err.message}); 
-  });
+  try {
 
   // TODO: Add operator
   var operations = {
@@ -12,10 +10,12 @@ exports.calculate = function(req, res) {
     'multiply': function(a, b) { return a * b },
     'power':    function(a, b) { return Math.pow(a, b) },
     'divide':   function(a, b) { return a / b },
-    'sqrt':     function(a) { return Math.sqrt(a) }
+    'sqrt':     function(a) { return Math.sqrt(a) },
+    'pow2':     function(a) { return a * a },
+    'pow3':     function(a) { return a * a * a }
   };
 
-  var unaryOps = ['sqrt'];
+  var unaryOps = ['sqrt', 'pow2', 'pow3'];
 
   if (!req.query.operation) {
     throw new Error("Unspecified operation");
@@ -39,6 +39,9 @@ exports.calculate = function(req, res) {
 
   var result;
   if (unaryOps.includes(req.query.operation)) {
+    if (req.query.operand2) {
+      throw new Error("Unary operation does not accept operand2");
+    }
     result = operation(req.query.operand1);
   } else {
     if (!req.query.operand2 ||
@@ -50,4 +53,7 @@ exports.calculate = function(req, res) {
   }
 
   res.json({ result: parseFloat(result.toFixed(6)) });
+  } catch (err) {
+    res.status(400).json({error: err.message});
+  }
 };

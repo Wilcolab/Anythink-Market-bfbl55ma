@@ -306,5 +306,83 @@ describe('Arithmetic', function () {
                     done();
                 });
         });
+        it('rejects operand2 for square root', function (done) {
+            request.get('/arithmetic?operation=sqrt&operand1=4&operand2=2')
+                .expect(400)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ error: "Unary operation does not accept operand2" });
+                    done();
+                });
+        });
+    });
+
+    describe('Square', function () {
+        it('calculates square of a positive integer', function (done) {
+            request.get('/arithmetic?operation=pow2&operand1=4')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 16 });
+                    done();
+                });
+        });
+        it('calculates square of zero', function (done) {
+            request.get('/arithmetic?operation=pow2&operand1=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0 });
+                    done();
+                });
+        });
+        it('calculates square of a negative number', function (done) {
+            request.get('/arithmetic?operation=pow2&operand1=-3')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 9 });
+                    done();
+                });
+        });
+        it('rejects operand2 for square', function (done) {
+            request.get('/arithmetic?operation=pow2&operand1=4&operand2=2')
+                .expect(400)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ error: "Unary operation does not accept operand2" });
+                    done();
+                });
+        });
+    });
+
+    describe('Cube', function () {
+        it('calculates cube of a positive integer', function (done) {
+            request.get('/arithmetic?operation=pow3&operand1=3')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 27 });
+                    done();
+                });
+        });
+        it('calculates cube of zero', function (done) {
+            request.get('/arithmetic?operation=pow3&operand1=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0 });
+                    done();
+                });
+        });
+        it('calculates cube of a negative number', function (done) {
+            request.get('/arithmetic?operation=pow3&operand1=-2')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: -8 });
+                    done();
+                });
+        });
+        it('rejects operand2 for cube', function (done) {
+            request.get('/arithmetic?operation=pow3&operand1=3&operand2=2')
+                .expect(400)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ error: "Unary operation does not accept operand2" });
+                    done();
+                });
+        });
     });
 });
